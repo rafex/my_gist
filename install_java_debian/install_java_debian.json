@@ -1,0 +1,21 @@
+
+{
+    "installationPath" : "/opt/java",
+    "sudo" : 1,
+    "vendors":[
+        {
+            "vendor" : "ibm",
+            "version" : "8",
+            "arch" : "x64",
+            "baseUrl" : "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u362-b09_openj9-0.36.0/",
+            "binary" : "ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0.tar.gz"        
+        },
+        {
+            "vendor" : "ibm",
+            "version" : "17",
+            "arch" : "x64",
+            "baseUrl" : "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.6%2B10_openj9-0.36.0/",
+            "binary" : "ibm-semeru-open-jdk_x64_linux_17.0.6_10_openj9-0.36.0.tar.gz"        
+        }
+    ]
+}
