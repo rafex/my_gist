@@ -39,15 +39,24 @@ unpackage() {
   $SUDO tar -xvf "$TMP_PATH/$binary" -C $folder --strip-components=1
 }
 
-COUNT=0
-while [ $COUNT -lt 1 ]; do
+COUNT=0 
+while [ $COUNT -lt 100 ]; do
+  control=$(jq .vendors[$COUNT].vendor $CONFIGURATION_JSON)
+  #control=$(echo $control | tr -d '\"')
+  #control=$(echo $control | sed 's/""//')
+  if [ $control == "null" ]
+    then
+      echo "No more vendors"
+      exit 0
+  fi
   echo "Vendor of count is: $COUNT - [$(jq .vendors[$COUNT].vendor $CONFIGURATION_JSON)] - version [$(jq .vendors[$COUNT].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$COUNT].arch $CONFIGURATION_JSON)]"
   # jq .vendors[$COUNT] $CONFIGURATION_JSON
-  COUNT=$(($COUNT + 1))
   url=$(jq .vendors[$COUNT].baseUrl $CONFIGURATION_JSON)
   url=$url$(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
   url=$(echo $url | sed 's/""//')
   # echo $url
   download $url
   unpackage $(jq .vendors[$COUNT].version $CONFIGURATION_JSON) $(jq .vendors[$COUNT].arch $CONFIGURATION_JSON) $(jq .vendors[$COUNT].name $CONFIGURATION_JSON) $(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
+  
+  COUNT=$(($COUNT + 1))
 done
