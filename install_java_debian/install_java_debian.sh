@@ -3,6 +3,7 @@
 CONFIGURATION_JSON="install_java_debian.json"
 TMP_PATH="/tmp/java"
 INSTALLATION_PATH=$(jq '.installationPath' $CONFIGURATION_JSON)
+INSTALLATION_PATH=$(echo $INSTALLATION_PATH | tr -d '\"')
 SUDO=$(jq '.sudo' $CONFIGURATION_JSON)
 
 if [ $SUDO -eq 1 ]
@@ -40,27 +41,45 @@ unpackage() {
 }
 
 install_update_alternatives() {
-  $SUDO update-alternatives --install /usr/bin/$1 $1 ${BASE_PATH}/${VERSION_NODEJS}/bin/node 10
+  name=$(echo $1 | tr -d '\"')
+  path=$(echo $2 | tr -d '\"')
+  priority=$(echo $3 | tr -d '\"')
+  #echo $path
+  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $priority
 }
 
-COUNT=0 
-while [ $COUNT -lt 100 ]; do
-  control=$(jq .vendors[$COUNT].vendor $CONFIGURATION_JSON)
-  #control=$(echo $control | tr -d '\"')
-  #control=$(echo $control | sed 's/""//')
-  if [ $control == "null" ]
+count=0 
+while [ $count -lt 100 ]; do
+  vendor=$(jq .vendors[$count].vendor $CONFIGURATION_JSON)
+  if [ $vendor == "null" ]
     then
       echo "No more vendors"
       exit 0
   fi
-  echo "Vendor of count is: $COUNT - [$(jq .vendors[$COUNT].vendor $CONFIGURATION_JSON)] - version [$(jq .vendors[$COUNT].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$COUNT].arch $CONFIGURATION_JSON)]"
-  # jq .vendors[$COUNT] $CONFIGURATION_JSON
-  url=$(jq .vendors[$COUNT].baseUrl $CONFIGURATION_JSON)
-  url=$url$(jq .vendors[$COUNT].package $CONFIGURATION_JSON)
+  echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
+  # jq .vendors[$count] $CONFIGURATION_JSON
+  url=$(jq .vendors[$count].baseUrl $CONFIGURATION_JSON)
+  url=$url$(jq .vendors[$count].package $CONFIGURATION_JSON)
   url=$(echo $url | sed 's/""//')
-  path="$(jq .vendors[$COUNT].version $CONFIGURATION_JSON)/$(jq .vendors[$COUNT].arch $CONFIGURATION_JSON)/$(jq .vendors[$COUNT].name $CONFIGURATION_JSON)"
+  priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
+  name=$(jq .vendors[$count].name $CONFIGURATION_JSON)
+  path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
   download $url
-  unpackage $path $(jq .vendors[$COUNT].package $CONFIGURATION_JSON)
+  unpackage $path $(jq .vendors[$count].package $CONFIGURATION_JSON)
+
+  count_bin=0
+  while [ $count_bin -lt 10 ]; do
+    bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
+    if [ $bin == "null" ]
+      then
+        echo ""
+      else 
+        install_update_alternatives $bin $path $priority
+    fi
+    count_bin=$(($count_bin + 1))
+  done
+
+   
   
-  COUNT=$(($COUNT + 1))
+  count=$(($count + 1))
 done
