@@ -28,15 +28,15 @@ download() {
 }
 
 unpackage() {
-  folder="$INSTALLATION_PATH/$1/$2"
+  folder="$INSTALLATION_PATH/$1/$2/$3"
   folder=$(echo $folder | tr -d '\"')
   if [ ! -d "$folder" ]; then
     echo "$folder does not exist."
     $SUDO mkdir -p $folder
   fi
-  binary=$(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
+  binary=$4
   binary=$(echo $binary | tr -d '\"')
-  $SUDO tar -xvf "$TMP_PATH/$binary" -C $folder
+  $SUDO tar -xvf "$TMP_PATH/$binary" -C $folder --strip-components=1
 }
 
 COUNT=0
@@ -49,5 +49,5 @@ while [ $COUNT -lt 1 ]; do
   url=$(echo $url | sed 's/""//')
   # echo $url
   download $url
-  unpackage $(jq .vendors[$COUNT].version $CONFIGURATION_JSON) $(jq .vendors[$COUNT].arch $CONFIGURATION_JSON) $(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
+  unpackage $(jq .vendors[$COUNT].version $CONFIGURATION_JSON) $(jq .vendors[$COUNT].arch $CONFIGURATION_JSON) $(jq .vendors[$COUNT].name $CONFIGURATION_JSON) $(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
 done
