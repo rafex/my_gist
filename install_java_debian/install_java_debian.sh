@@ -24,19 +24,23 @@ download() {
     echo "$TMP_PATH does not exist."
     mkdir -p $TMP_PATH
   fi
-  wget -P $TMP_PATH -c $resources
+  #wget -P $TMP_PATH -c $resources
 }
 
 unpackage() {
-  folder="$INSTALLATION_PATH/$1/$2/$3"
+  folder="$INSTALLATION_PATH/$1"
   folder=$(echo $folder | tr -d '\"')
   if [ ! -d "$folder" ]; then
     echo "$folder does not exist."
     $SUDO mkdir -p $folder
   fi
-  binary=$4
+  binary=$2
   binary=$(echo $binary | tr -d '\"')
   $SUDO tar -xvf "$TMP_PATH/$binary" -C $folder --strip-components=1
+}
+
+install_update_alternatives() {
+  $SUDO update-alternatives --install /usr/bin/$1 $1 ${BASE_PATH}/${VERSION_NODEJS}/bin/node 10
 }
 
 COUNT=0 
@@ -52,11 +56,11 @@ while [ $COUNT -lt 100 ]; do
   echo "Vendor of count is: $COUNT - [$(jq .vendors[$COUNT].vendor $CONFIGURATION_JSON)] - version [$(jq .vendors[$COUNT].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$COUNT].arch $CONFIGURATION_JSON)]"
   # jq .vendors[$COUNT] $CONFIGURATION_JSON
   url=$(jq .vendors[$COUNT].baseUrl $CONFIGURATION_JSON)
-  url=$url$(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
+  url=$url$(jq .vendors[$COUNT].package $CONFIGURATION_JSON)
   url=$(echo $url | sed 's/""//')
-  # echo $url
+  path="$(jq .vendors[$COUNT].version $CONFIGURATION_JSON)/$(jq .vendors[$COUNT].arch $CONFIGURATION_JSON)/$(jq .vendors[$COUNT].name $CONFIGURATION_JSON)"
   download $url
-  unpackage $(jq .vendors[$COUNT].version $CONFIGURATION_JSON) $(jq .vendors[$COUNT].arch $CONFIGURATION_JSON) $(jq .vendors[$COUNT].name $CONFIGURATION_JSON) $(jq .vendors[$COUNT].binary $CONFIGURATION_JSON)
+  unpackage $path $(jq .vendors[$COUNT].package $CONFIGURATION_JSON)
   
   COUNT=$(($COUNT + 1))
 done
