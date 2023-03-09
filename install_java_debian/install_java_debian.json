@@ -157,6 +157,39 @@
             "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
             "package" : "graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "corretto",            
+            "version" : "8",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 108,
+            "url" : "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-linux-jdk.tar.gz",
+            "package" : "amazon-corretto-8-x64-linux-jdk.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "corretto",            
+            "version" : "11",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 111,
+            "url" : "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz",
+            "package" : "amazon-corretto-11-x64-linux-jdk.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "corretto",            
+            "version" : "17",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 117,
+            "url" : "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-linux-jdk.tar.gz",
+            "package" : "amazon-corretto-17-x64-linux-jdk.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
         }
     ]
 }

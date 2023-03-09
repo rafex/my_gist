@@ -64,7 +64,7 @@ while [ $count -lt 100 ]; do
   install=$(jq .install $CONFIGURATION_JSON)
 
   if [ $ignore -eq 0 ]; then
-    if [ $install == $vendor ] || [ $install -eq 1 ]; then
+    if [ $install == $vendor ] || [ $install -eq "all" ]; then
       echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
       # jq .vendors[$count] $CONFIGURATION_JSON
       url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
