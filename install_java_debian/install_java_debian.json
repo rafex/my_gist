@@ -8,19 +8,50 @@
             "name" : "ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0",
             "version" : "8",
             "arch" : "x64",
-            "priority" : 11,
+            "type" : "jdk",
+            "priority" : 1008,
             "baseUrl" : "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u362-b09_openj9-0.36.0/",
             "package" : "ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
         {
-            "vendor" : "ibm",
-            "name" : "ibm-semeru-open-jdk_x64_linux_17.0.6_10_openj9-0.36.0",
+            "vendor" : "ibm",            
+            "version" : "11",
+            "arch" : "x64",
+            "type" : "jdk",
+            "priority" : 1011,
+            "baseUrl" : "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.18%2B10_openj9-0.36.1/",
+            "package" : "ibm-semeru-open-jdk_x64_linux_11.0.18_10_openj9-0.36.1.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "ibm",            
+            "version" : "16",
+            "arch" : "x64",
+            "type" : "jdk",
+            "priority" : 1016,
+            "baseUrl" : "https://github.com/ibmruntimes/semeru16-binaries/releases/download/jdk-16.0.2%2B7_openj9-0.27.0/",
+            "package" : "ibm-semeru-open-jdk_x64_linux_16.0.2_7_openj9-0.27.0.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "ibm",            
             "version" : "17",
             "arch" : "x64",
-            "priority" : 12,
+            "type" : "jdk",
+            "priority" : 1017,
             "baseUrl" : "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.6%2B10_openj9-0.36.0/",
             "package" : "ibm-semeru-open-jdk_x64_linux_17.0.6_10_openj9-0.36.0.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "ibm",            
+            "version" : "18",
+            "arch" : "x64",
+            "type" : "jdk",
+            "priority" : 1018,
+            "baseUrl" : "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.2%2B9_openj9-0.33.1/",
+            "package" : "ibm-semeru-open-jdk_x64_linux_18.0.2_9_openj9-0.33.1.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         }
     ]

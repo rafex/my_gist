@@ -25,7 +25,7 @@ download() {
     echo "$TMP_PATH does not exist."
     mkdir -p $TMP_PATH
   fi
-  #wget -P $TMP_PATH -c $resources
+  wget -P $TMP_PATH -c $resources
 }
 
 unpackage() {
@@ -62,7 +62,8 @@ while [ $count -lt 100 ]; do
   url=$url$(jq .vendors[$count].package $CONFIGURATION_JSON)
   url=$(echo $url | sed 's/""//')
   priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
-  name=$(jq .vendors[$count].name $CONFIGURATION_JSON)
+  name=$(jq .vendors[$count].package $CONFIGURATION_JSON)
+  name=$(echo "${name%.*.*}")
   path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
   download $url
   unpackage $path $(jq .vendors[$count].package $CONFIGURATION_JSON)
