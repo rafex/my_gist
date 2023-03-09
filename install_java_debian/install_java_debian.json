@@ -2,13 +2,14 @@
 {
     "installationPath" : "/opt/java",
     "sudo" : 1,
+    "install" : "adoptium",
     "vendors":[
         {
             "vendor" : "ibm",
             "version" : "8",
             "arch" : "x64",
             "type" : "jdk",
-            "ignore" : 1,
+            "ignore" : 0,
             "priority" : 1008,
             "url" : "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u362-b09_openj9-0.36.0/ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0.tar.gz",
             "package" : "ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0.tar.gz",
@@ -122,6 +123,39 @@
             "priority" : 2019,
             "url" : "https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2%2B7/OpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz",
             "package" : "OpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "graalvm",            
+            "version" : "11",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 1020,
+            "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java11-linux-amd64-22.3.1.tar.gz",
+            "package" : "graalvm-ce-java11-linux-amd64-22.3.1.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "graalvm",            
+            "version" : "17",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 1021,
+            "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java17-linux-amd64-22.3.1.tar.gz",
+            "package" : "graalvm-ce-java17-linux-amd64-22.3.1.tar.gz",
+            "binarys" : ["java","javac","jar","jcmd","keytool"]
+        },
+        {
+            "vendor" : "graalvm",            
+            "version" : "19",
+            "arch" : "x64",
+            "type" : "jdk",
+            "ignore" : 0,
+            "priority" : 1022,
+            "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
+            "package" : "graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         }
     ]

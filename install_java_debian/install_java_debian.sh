@@ -56,40 +56,44 @@ while [ $count -lt 100 ]; do
   if [ $vendor == "null" ]
     then
       echo "No more vendors"
+      update-alternatives --list java
       exit 0
   fi
 
   ignore=$(jq .vendors[$count].ignore $CONFIGURATION_JSON)
+  install=$(jq .install $CONFIGURATION_JSON)
 
   if [ $ignore -eq 0 ]; then
-    echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
-    # jq .vendors[$count] $CONFIGURATION_JSON
-    url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
-    url=$(echo $url | sed 's/""//')
-    priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
-    name=$(jq .vendors[$count].package $CONFIGURATION_JSON)
-    name=$(echo "${name%.*.*}")
-    path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
-    package=$(jq .vendors[$count].package $CONFIGURATION_JSON)
+    if [ $install == $vendor ] || [ $install -eq 1 ]; then
+      echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
+      # jq .vendors[$count] $CONFIGURATION_JSON
+      url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
+      url=$(echo $url | sed 's/""//')
+      priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
+      name=$(jq .vendors[$count].package $CONFIGURATION_JSON)
+      name=$(echo "${name%.*.*}")
+      path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
+      package=$(jq .vendors[$count].package $CONFIGURATION_JSON)
 
-    download $url
-    unpackage $path $package
+      download $url
+      unpackage $path $package
 
-    count_bin=0
-    while [ $count_bin -lt 10 ]; do
-      bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
-      if [ $bin == "null" ]
-        then
-          echo ""
-        else 
-          install_update_alternatives $bin $path $priority
-      fi
-      count_bin=$(($count_bin + 1))
-    done  
+      count_bin=0
+      while [ $count_bin -lt 10 ]; do
+        bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
+        if [ $bin == "null" ]
+          then
+            echo ""
+          else 
+            install_update_alternatives $bin $path $priority
+        fi
+        count_bin=$(($count_bin + 1))
+      done  
+    fi
         
   fi
   
   count=$(($count + 1))
 done
 
-update-alternatives --list java
+
