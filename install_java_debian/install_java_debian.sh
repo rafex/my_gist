@@ -1,4 +1,6 @@
 #!/bin/bash
+# @Author Raúl González
+# Twitter @rafex
 
 CONFIGURATION_JSON="install_java_debian.json"
 TMP_PATH="/tmp/java"
@@ -6,14 +8,7 @@ INSTALLATION_PATH=$(jq '.installationPath' $CONFIGURATION_JSON)
 INSTALLATION_PATH=$(echo $INSTALLATION_PATH | tr -d '\"')
 SUDO=$(jq '.sudo' $CONFIGURATION_JSON)
 
-if [ $SUDO -eq 1 ]
-  then
-    echo "Sudo activate"
-    SUDO="sudo"
-  else
-    echo "Sudo desactivate"
-    SUDO=""
-fi
+
 
 # Example URL
 # https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.6%2B10_openj9-0.36.0/ibm-semeru-open-jdk_x64_linux_17.0.6_10_openj9-0.36.0.tar.gz
@@ -56,31 +51,34 @@ while [ $count -lt 100 ]; do
       echo "No more vendors"
       exit 0
   fi
-  echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
-  # jq .vendors[$count] $CONFIGURATION_JSON
-  url=$(jq .vendors[$count].baseUrl $CONFIGURATION_JSON)
-  url=$url$(jq .vendors[$count].package $CONFIGURATION_JSON)
-  url=$(echo $url | sed 's/""//')
-  priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
-  name=$(jq .vendors[$count].package $CONFIGURATION_JSON)
-  name=$(echo "${name%.*.*}")
-  path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
-  download $url
-  unpackage $path $(jq .vendors[$count].package $CONFIGURATION_JSON)
 
-  count_bin=0
-  while [ $count_bin -lt 10 ]; do
-    bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
-    if [ $bin == "null" ]
-      then
-        echo ""
-      else 
-        install_update_alternatives $bin $path $priority
-    fi
-    count_bin=$(($count_bin + 1))
-  done
+  if [ $SUDO -eq 0 ]; then
+    echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
+    # jq .vendors[$count] $CONFIGURATION_JSON
+    url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
+    url=$(echo $url | sed 's/""//')
+    priority=$(jq .vendors[$count].priority $CONFIGURATION_JSON)
+    name=$(jq .vendors[$count].package $CONFIGURATION_JSON)
+    name=$(echo "${name%.*.*}")
+    path="$(jq .vendors[$count].version $CONFIGURATION_JSON)/$(jq .vendors[$count].arch $CONFIGURATION_JSON)/$name"
+    package=$(jq .vendors[$count].package $CONFIGURATION_JSON)
 
-   
+    download $url
+    unpackage $path $package
+
+    count_bin=0
+    while [ $count_bin -lt 10 ]; do
+      bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
+      if [ $bin == "null" ]
+        then
+          echo ""
+        else 
+          install_update_alternatives $bin $path $priority
+      fi
+      count_bin=$(($count_bin + 1))
+    done  
+        
+  fi
   
   count=$(($count + 1))
 done
