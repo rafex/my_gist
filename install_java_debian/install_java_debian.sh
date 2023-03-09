@@ -52,7 +52,9 @@ while [ $count -lt 100 ]; do
       exit 0
   fi
 
-  if [ $SUDO -eq 0 ]; then
+  ignore=$(jq .vendors[$count].ignore $CONFIGURATION_JSON)
+
+  if [ $ignore -eq 0 ]; then
     echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
     # jq .vendors[$count] $CONFIGURATION_JSON
     url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
