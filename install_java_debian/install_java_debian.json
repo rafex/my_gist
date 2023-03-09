@@ -5,7 +5,6 @@
     "vendors":[
         {
             "vendor" : "ibm",
-            "name" : "ibm-semeru-open-jdk_x64_linux_8u362b09_openj9-0.36.0",
             "version" : "8",
             "arch" : "x64",
             "type" : "jdk",
@@ -66,7 +65,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2008,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924428/3464d2a7-e197-4f0a-a70f-a5a7829aa938?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T171147Z&X-Amz-Expires=300&X-Amz-Signature=6d16adf6cebd5d757ad4013a53f4ea7eaf548f9e778ea5d8bcaef6df95135563&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924428&response-content-disposition=attachment%3B%20filename%3DOpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz",
             "package" : "OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
@@ -77,7 +76,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2011,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/21c728f4-2d5b-462c-92ea-c6611b53692b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T171759Z&X-Amz-Expires=300&X-Amz-Signature=3e5fa768f90cba79e7e33a2e6450df531fe56598fd4cce30a8703f4b77f37788&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924883&response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.18_10.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.18%2B10/OpenJDK11U-jdk_x64_linux_hotspot_11.0.18_10.tar.gz",
             "package" : "OpenJDK11U-jdk_x64_linux_hotspot_11.0.18_10.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
@@ -88,7 +87,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2016,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/372925054/23f6f1a0-cdcf-4e0b-ba2a-a3c64c6dc46a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T171901Z&X-Amz-Expires=300&X-Amz-Signature=b6aa23558fa0d0453259932f99eaa15b4d15e8a0bfcd215da1362ea158a71dde&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372925054&response-content-disposition=attachment%3B%20filename%3DOpenJDK16U-jdk_x64_linux_hotspot_16.0.2_7.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/",
             "package" : "OpenJDK16U-jdk_x64_linux_hotspot_16.0.2_7.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
@@ -99,7 +98,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2017,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/372925194/a03f5ba2-cdae-4952-b02c-3a653c6c69ac?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T172116Z&X-Amz-Expires=300&X-Amz-Signature=9304e1b98ecd6b09792c7248b143577754ef1fc03277f1c3e18252ed91bf93af&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372925194&response-content-disposition=attachment%3B%20filename%3DOpenJDK17U-jdk_x64_linux_hotspot_17.0.6_10.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.6%2B10/OpenJDK17U-jdk_x64_linux_hotspot_17.0.6_10.tar.gz",
             "package" : "OpenJDK17U-jdk_x64_linux_hotspot_17.0.6_10.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
@@ -110,7 +109,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2018,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/376085653/931f3369-e981-4704-9019-c520dd4f8250?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T172156Z&X-Amz-Expires=300&X-Amz-Signature=822462a08b14ed52c466c160a0ada625f59de7de477463f741879c4a15228645&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=376085653&response-content-disposition=attachment%3B%20filename%3DOpenJDK18U-jdk_x64_linux_hotspot_18.0.2.1_1.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.2.1%2B1/OpenJDK18U-jdk_x64_linux_hotspot_18.0.2.1_1.tar.gz",
             "package" : "OpenJDK18U-jdk_x64_linux_hotspot_18.0.2.1_1.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         },
@@ -121,7 +120,7 @@
             "type" : "jdk",
             "ignore" : 0,
             "priority" : 2019,
-            "url" : "https://objects.githubusercontent.com/github-production-release-asset-2e65be/437830137/f4e10613-c7be-4a02-bc33-7f3308d1b55c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230309%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230309T172234Z&X-Amz-Expires=300&X-Amz-Signature=29852cbb4c2fa3ca6c4d61d0079b72838df13dedd7cf045ebb5592ac140f2c17&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=437830137&response-content-disposition=attachment%3B%20filename%3DOpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz&response-content-type=application%2Foctet-stream",
+            "url" : "https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2%2B7/OpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz",
             "package" : "OpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz",
             "binarys" : ["java","javac","jar","jcmd","keytool"]
         }

@@ -8,7 +8,14 @@ INSTALLATION_PATH=$(jq '.installationPath' $CONFIGURATION_JSON)
 INSTALLATION_PATH=$(echo $INSTALLATION_PATH | tr -d '\"')
 SUDO=$(jq '.sudo' $CONFIGURATION_JSON)
 
-
+if [ $SUDO -eq 1 ]
+  then
+    echo "Sudo activate"
+    SUDO="sudo"
+  else
+    echo "Sudo desactivate"
+    SUDO=""
+fi
 
 # Example URL
 # https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.6%2B10_openj9-0.36.0/ibm-semeru-open-jdk_x64_linux_17.0.6_10_openj9-0.36.0.tar.gz
@@ -84,3 +91,5 @@ while [ $count -lt 100 ]; do
   
   count=$(($count + 1))
 done
+
+update-alternatives --list java
