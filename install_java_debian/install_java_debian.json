@@ -134,7 +134,7 @@
             "priority" : 1020,
             "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java11-linux-amd64-22.3.1.tar.gz",
             "package" : "graalvm-ce-java11-linux-amd64-22.3.1.tar.gz",
-            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot"]
+            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot","native-image","native-image-configure","rebuild-images"]
         },
         {
             "vendor" : "graalvm",            
@@ -145,7 +145,7 @@
             "priority" : 1021,
             "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java17-linux-amd64-22.3.1.tar.gz",
             "package" : "graalvm-ce-java17-linux-amd64-22.3.1.tar.gz",
-            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot"]
+            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot","native-image","native-image-configure","rebuild-images"]
         },
         {
             "vendor" : "graalvm",            
@@ -156,7 +156,7 @@
             "priority" : 1022,
             "url" : "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.1/graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
             "package" : "graalvm-ce-java19-linux-amd64-22.3.1.tar.gz",
-            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot"]
+            "binarys" : ["java","javac","jar","jcmd","keytool","gu","polyglot","native-image","native-image-configure","rebuild-images"]
         },
         {
             "vendor" : "corretto",            

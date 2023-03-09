@@ -39,7 +39,7 @@ unpackage() {
   fi
   binary=$2
   binary=$(echo $binary | tr -d '\"')
-  $SUDO tar -xvf "$TMP_PATH/$binary" -C $folder --strip-components=1
+  $SUDO tar -xf "$TMP_PATH/$binary" -C $folder --strip-components=1
 }
 
 install_update_alternatives() {
@@ -47,7 +47,17 @@ install_update_alternatives() {
   path=$(echo $2 | tr -d '\"')
   priority=$(echo $3 | tr -d '\"')
   #echo $path
-  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $priority
+  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $
+  update-alternatives --list $name
+}
+
+install_native_image_graalvm() {
+  vendor=$(echo $1 | tr -d '\"')
+  path=$(echo $2 | tr -d '\"')
+  if [ $vendor == "graalvm" ]; then
+    echo "Install Native Image GraalVM"
+    $sudo $INSTALLATION_PATH/$path/bin/gu install native-image
+  fi
 }
 
 count=0 
@@ -56,7 +66,7 @@ while [ $count -lt 100 ]; do
   if [ $vendor == "null" ]
     then
       echo "No more vendors"
-      update-alternatives --list java
+      
       exit 0
   fi
 
@@ -78,6 +88,8 @@ while [ $count -lt 100 ]; do
       download $url
       unpackage $path $package
 
+      install_native_image_graalvm $vendor $path
+
       count_bin=0
       while [ $count_bin -lt 10 ]; do
         bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
@@ -85,7 +97,7 @@ while [ $count -lt 100 ]; do
           then
             echo ""
           else 
-            install_update_alternatives $bin $path $priority
+            install_update_alternatives $bin $path $priority            
         fi
         count_bin=$(($count_bin + 1))
       done  
