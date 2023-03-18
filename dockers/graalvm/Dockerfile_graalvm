@@ -1,21 +1,18 @@
-FROM ghcr.io/graalvm/graalvm-ce:22.3.1 as graalvm
-
+FROM ghcr.io/graalvm/graalvm-ce:22.3.1 as build
 RUN gu install native-image
-
-WORKDIR /usr/src/graalvmExample
-
-RUN ls -l
-
-#COPY src/*.java /usr/src/graalvmExample
-
-RUN javac HelloWorld.java 
-
+WORKDIR /src
+#RUN ls -l
+COPY src/*.java /src
+RUN javac HelloWorld.java
 RUN native-image HelloWorld
+RUN ls -lah
+RUN  ./helloworld
 
-RUN ls -la
+#FROM scratch
+#WORKDIR /src2
+#COPY --from=build ./* .
+#COPY --from=build helloworld /usr/bin/
+#ENTRYPOINT ["/usr/bin/helloworld"]
 
-#RUN  ./helloworld
 
-# docker build . -t graalvm_example:v01 -f Dockerfile_graalvm
-# docker run -it --rm --mount type=bind,source=/home/rafex/github/gist/dockers/graalvm/src,target=/usr/src/graalvmExample mount-ex
 
