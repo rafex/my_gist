@@ -34,6 +34,11 @@ download() {
 unpackage() {
   folder="$INSTALLATION_PATH/$1"
   folder=$(echo $folder | tr -d '\"')
+
+  echo "------------------------------------------"
+  echo $folder
+  echo "------------------------------------------"
+
   if [ ! -d "$folder" ]; then
     echo "$folder does not exist."
     $SUDO mkdir -p $folder
@@ -48,13 +53,17 @@ install_update_alternatives() {
   path=$(echo $2 | tr -d '\"')
   priority=$(echo $3 | tr -d '\"')
   #echo $path
-  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $
+  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $priority
   update-alternatives --list $name
 }
 
 count=0 
 while [ $count -lt 100 ]; do
   version=$(jq .versions[$count].version $CONFIGURATION_JSON)
+  #version=$(echo $version | tr -d '\"')
+  #echo "------------------------------------------"
+  #echo $version
+  #echo "------------------------------------------"
   if [ $version == "null" ]
     then
       echo "No more versions"
@@ -66,27 +75,31 @@ while [ $count -lt 100 ]; do
   install=$(jq .install $CONFIGURATION_JSON)
 
   if [ $ignore -eq 0 ]; then
-    if [ $install == $version ] || [ $install -eq "all" ]; then
-      echo "Version of count is: $count - [$version] - version [$(jq .versions[$count].version $CONFIGURATION_JSON)] - arch [$(jq .versions[$count].arch $CONFIGURATION_JSON)]"
+    if [[ $install == $version ]] || [ $install == "all" ]; then
+      echo "Version of count is: $count - version [$(jq .versions[$count].version $CONFIGURATION_JSON)]"
       url=$(jq .urlBin $CONFIGURATION_JSON)
+      url=$(echo $url | sed -e "s/VERSION/${version}/g")
       url=$(echo $url | sed 's/""//')
       priority=$(jq .versions[$count].priority $CONFIGURATION_JSON)
       name=$(jq .versions[$count].package $CONFIGURATION_JSON)
-      name=$(echo $LINE | sed -e "s/VERSION/${version}/g")
+      name=$(echo $name | sed -e "s/VERSION/${version}/g")
       name=$(echo "${name%.*.*}")
-      path="$(jq .versions[$count].version $CONFIGURATION_JSON)/$(jq .versions[$count].arch $CONFIGURATION_JSON)/$name"
+      path="$(jq .versions[$count].version $CONFIGURATION_JSON)/$name"
       package=$(jq .versions[$count].package $CONFIGURATION_JSON)
-      package=$(echo $LINE | sed -e "s/VERSION/${version}/g")
+      echo $package
+      package=$(echo $package | sed -e "s/VERSION/${version}/g")
+      echo $package
       download "$url/$package"
       unpackage $path $package      
 
       count_bin=0
       while [ $count_bin -lt 10 ]; do
         bin=$(jq .versions[$count].binarys[$count_bin] $CONFIGURATION_JSON)
-        if [ $bin == "null" ]
+        if [[ $bin == "null" ]]
           then
-            echo ""
+            echo "" > /dev/null
           else 
+            echo "UPDATE-ALTERNATIVES [$bin $path $priority]"
             install_update_alternatives $bin $path $priority            
         fi
         count_bin=$(($count_bin + 1))

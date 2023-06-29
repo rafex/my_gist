@@ -1,0 +1,6 @@
+
+{
+    "sudo" : 1,
+    "action" : "config",
+    "commands" : ["java","javac","jar","jcmd","keytool","gu","polyglot","native-image","native-image-configure","rebuild-images"]
+}

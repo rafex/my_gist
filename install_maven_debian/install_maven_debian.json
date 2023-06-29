@@ -1,7 +1,7 @@
 
 {
     "installationPath" : "/opt/maven",
-    "sudo" : 0,
+    "sudo" : 1,
     "install" : "3.9.3",
     "urlBin": "https://dlcdn.apache.org/maven/maven-3/VERSION/binaries",
     "urlSha": "https://downloads.apache.org/maven/maven-3/VERSION/binaries/apache-maven-VERSION-bin.tar.gz.sha512",
@@ -11,14 +11,14 @@
             "ignore" : 0,
             "package" : "apache-maven-VERSION-bin.tar.gz",
             "priority" : 1009,
-            "binarys" : ["mvn"]
+            "binarys" : ["mvn","mvnDebug","mvnyjp"]
         },
         {
             "version" : "3.8.8",
             "ignore" : 0,
             "package" : "apache-maven-VERSION-bin.tar.gz",
             "priority" : 1008,
-            "binarys" : ["mvn"]
+            "binarys" : ["mvn","mvnDebug","mvnyjp"]
         }
     ]    
 }

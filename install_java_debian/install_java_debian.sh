@@ -47,7 +47,7 @@ install_update_alternatives() {
   path=$(echo $2 | tr -d '\"')
   priority=$(echo $3 | tr -d '\"')
   #echo $path
-  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $
+  $SUDO update-alternatives --install /usr/bin/$name $name $INSTALLATION_PATH/$path/bin/$name $priority
   update-alternatives --list $name
 }
 
@@ -56,7 +56,7 @@ install_native_image_graalvm() {
   path=$(echo $2 | tr -d '\"')
   if [ $vendor == "graalvm" ]; then
     echo "Install Native Image GraalVM"
-    $sudo $INSTALLATION_PATH/$path/bin/gu install native-image
+    $SUDO $INSTALLATION_PATH/$path/bin/gu install native-image
   fi
 }
 
@@ -74,7 +74,7 @@ while [ $count -lt 100 ]; do
   install=$(jq .install $CONFIGURATION_JSON)
 
   if [ $ignore -eq 0 ]; then
-    if [ $install == $vendor ] || [ $install -eq "all" ]; then
+    if [[ $install == $vendor ]] || [[ $install == "all" ]]; then
       echo "Vendor of count is: $count - [$vendor] - version [$(jq .vendors[$count].version $CONFIGURATION_JSON)] - arch [$(jq .vendors[$count].arch $CONFIGURATION_JSON)]"
       # jq .vendors[$count] $CONFIGURATION_JSON
       url=$(jq .vendors[$count].url $CONFIGURATION_JSON)
@@ -93,10 +93,11 @@ while [ $count -lt 100 ]; do
       count_bin=0
       while [ $count_bin -lt 10 ]; do
         bin=$(jq .vendors[$count].binarys[$count_bin] $CONFIGURATION_JSON)
-        if [ $bin == "null" ]
+        if [[ $bin == "null" ]]
           then
-            echo ""
+            echo "" > /dev/null
           else 
+            echo "UPDATE-ALTERNATIVES [$bin $path $priority]"
             install_update_alternatives $bin $path $priority            
         fi
         count_bin=$(($count_bin + 1))
