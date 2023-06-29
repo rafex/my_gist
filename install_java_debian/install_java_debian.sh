@@ -108,5 +108,3 @@ while [ $count -lt 100 ]; do
   
   count=$(($count + 1))
 done
-
-
